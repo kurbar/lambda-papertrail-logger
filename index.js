@@ -84,8 +84,8 @@ module.exports = function createLogger(context, papertrailConfig) {
 		log.add(papertrailTransport, {
 			host: papertrailConfig.host,
 			port: papertrailConfig.port,
-			program: context.functionName,
-			hostname: getHostnameForARN(context.invokedFunctionArn),
+			program: papertrailConfig.program ?: context.functionName,
+			hostname: papertrailConfig.hostname ?: getHostnameForARN(context.invokedFunctionArn),
 			includeMetaInMessage: false,
 			messageFormat: function (level, message, meta) {
 				return JSON.stringify(Object.assign({
